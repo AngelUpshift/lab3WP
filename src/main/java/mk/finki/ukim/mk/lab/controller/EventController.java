@@ -6,6 +6,8 @@ import mk.finki.ukim.mk.lab.model.Location;
 import mk.finki.ukim.mk.lab.model.Review;
 import mk.finki.ukim.mk.lab.service.EventServiceImplement;
 import mk.finki.ukim.mk.lab.service.LocationSeviceImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,10 @@ public class EventController {
 
                 request.setAttribute("locations", locationList);
                 request.setAttribute("events", events);
+
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+                request.setAttribute("authenticated", auth.getName());
 
                 return "listEvents";
         }

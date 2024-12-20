@@ -26,19 +26,18 @@
     </select>
         <input type="submit" value="Submit">
     </form>
-    <h2>Add an event:</h2>
-    <button onclick=location.href="/events/add">Add</button>
+    <h2 th:if="${authenticated == 'admin'}">Add an event:</h2>
+    <button th:if="${authenticated == 'admin'}" onclick=location.href="/events/add">Add</button>
     <h2>Choose an event:</h2>
      <form th:method="POST" th:action="@{/eventBooking}" >
         <div th:each="event: ${events}">
-            <input type="radio" name="eventName" th:value="${event.name}" id="eventName">
+            <input th:if="${authenticated == 'admin'}" type="radio" name="eventName" th:value="${event.name}" id="eventName">
             <label th:value="${event.name}" th:text="${event.name}"></label>
             <label th:value="${event.description}" th:text="${event.description}"></label>
             <label th:value="${event.popularityScore}" th:text="${event.popularityScore}"></label>
             <label th:value="${event.location.name}" th:text="${event.location.name}"></label>
 <!--            <label th:value="${event.review.description}" th:text="${event.review.description}"></label>-->
-
-            <button type="button" th:onclick="|location.href='/events/edit/' + ${event.id}|">Edit</button>
+            <button th:if="${authenticated == 'admin'}" type="button" th:onclick="|location.href='/events/edit/' + ${event.id}|">Edit</button>
 
 <!--   <form th:action="@{'/events/delete/{id}' (id=${event.id})}" th:method="POST" style="display: inline;">&ndash;&gt;-->
 <!--            <button type="button" th:onclick="|location.href='/events/delete/' + ${event.id}|">Delete</button>-->
@@ -46,11 +45,11 @@
 <!--            <button type="button" th:onclick="|location.href='/events/review/' + ${event.id}|">Review</button>-->
         </div>
 
-        <h2>Choose number of tickets:</h2>
-        <input type="number" name="numTickets" value="numTickets" id="numTickets" min="1" max="10"><br/>
+        <h2 th:if="${authenticated == 'admin'}">Choose number of tickets:</h2>
+        <input th:if="${authenticated == 'admin'}" type="number" name="numTickets" value="numTickets" id="numTickets" min="1" max="10"><br/>
 
         <br/>
-        <input type="submit" value="Submit">
+        <input th:if="${authenticated == 'admin'}" type="submit" value="Submit">
      </form>
 </main>
 </body>
