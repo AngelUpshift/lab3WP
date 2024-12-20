@@ -1,0 +1,57 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Event Booking page - Welcome and choose an Event</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to our Event Booking App</h1>
+</header>
+<main>
+    <h2>Search for event:</h2>
+    <form th:method="POST" th:action="@{/events}">
+    <label>Name</label>
+    <input type="text" name="filterByNameOrDesc"><br/>
+    <label>Rating</label>
+    <input type="number" name="filterByRating"><br/>
+    <label>Location</label>
+    <select name="location" >
+       <option th:each="location: ${locations}" th:value="${location.id}" th:text="${location.name}" name="locationId" id="locationId"></option>
+    </select>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>Add an event:</h2>
+    <button onclick=location.href="/events/add">Add</button>
+    <h2>Choose an event:</h2>
+     <form th:method="POST" th:action="@{/eventBooking}" >
+        <div th:each="event: ${events}">
+            <input type="radio" name="eventName" th:value="${event.name}" id="eventName">
+            <label th:value="${event.name}" th:text="${event.name}"></label>
+            <label th:value="${event.description}" th:text="${event.description}"></label>
+            <label th:value="${event.popularityScore}" th:text="${event.popularityScore}"></label>
+            <label th:value="${event.location.name}" th:text="${event.location.name}"></label>
+<!--            <label th:value="${event.review.description}" th:text="${event.review.description}"></label>-->
+
+            <button type="button" th:onclick="|location.href='/events/edit/' + ${event.id}|">Edit</button>
+
+<!--   <form th:action="@{'/events/delete/{id}' (id=${event.id})}" th:method="POST" style="display: inline;">&ndash;&gt;-->
+<!--            <button type="button" th:onclick="|location.href='/events/delete/' + ${event.id}|">Delete</button>-->
+<!--    </form>-->
+<!--            <button type="button" th:onclick="|location.href='/events/review/' + ${event.id}|">Review</button>-->
+        </div>
+
+        <h2>Choose number of tickets:</h2>
+        <input type="number" name="numTickets" value="numTickets" id="numTickets" min="1" max="10"><br/>
+
+        <br/>
+        <input type="submit" value="Submit">
+     </form>
+</main>
+</body>
+</html>

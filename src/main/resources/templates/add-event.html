@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+</head>
+<body>
+<form   th:action="@{${actionUrl}}"  th:method="POST">
+    <input type="text" id="eventName" name="eventName" th:value="${eventName}"></br>
+    <input type="text" id="eventDesc" name="eventDesc" th:value="${eventDesc}" ></br>
+    <input type="number" id="eventScore" name="eventScore" th:value="${eventScore}"></br>
+<!--    <input type="number" th:if="${!actionUrl.contains('edit')}" id="eventId" name="eventId" th:value="${eventId}"></br>-->
+    <div>
+    <select name="location" >
+        <option th:each="location: ${locations}" th:value="${location.id}" th:text="${location.name}" name="locationId" id="locationId"></option>
+    </select>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

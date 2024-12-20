@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  wp-db:
+    image: "postgres"
+    container_name: "wp_lab3-container"
+    environment:
+      - POSTGRES_USER=wp      # Set the username to wp
+      - POSTGRES_PASSWORD=wp123 # Set the password to wp123
+      - POSTGRES_DB=events      # Optional: Define the default database name
+    ports:
+      - "5433:5432" # Map port 5433 on the host to port 5432 in the container
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data # Persist data locally
+
+volumes:
+  postgres_data:
